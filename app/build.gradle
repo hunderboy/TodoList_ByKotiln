@@ -1,6 +1,7 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
+apply plugin: 'com.google.gms.google-services'
 
 android {
     compileSdkVersion 30
@@ -23,6 +24,11 @@ android {
         }
     }
 
+    // 데이터 바인딩 적용
+    dataBinding {
+        enabled true
+    }
+
     // 뷰바인딩 적용
     viewBinding {
         enabled = true
@@ -35,6 +41,9 @@ android {
 }
 
 dependencies {
+    implementation platform('com.google.firebase:firebase-bom:26.0.0')
+    implementation 'com.google.firebase:firebase-analytics-ktx'
+
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     implementation 'androidx.appcompat:appcompat:1.2.0'
