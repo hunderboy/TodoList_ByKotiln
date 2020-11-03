@@ -9,6 +9,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.activity.viewModels
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -33,10 +35,11 @@ class MainActivity : AppCompatActivity() {
         binding.recyclerView.apply {
             layoutManager = LinearLayoutManager(this@MainActivity)
             adapter = TodoAdapter(
-                viewModel.data, // 빈 리스트(일단 에러가 나지 않게 코틀린에서 제공함.)
+//                viewModel.data,
+                emptyList(), // emptyList()( = 일단 에러가 나지 않게 코틀린에서 제공함.)
                 onClickDeleteIcon = {
                     viewModel.deleteTodo(it)
-                    binding.recyclerView.adapter?.notifyDataSetChanged()
+
                 },
                 onClickItem = {
                     viewModel.toggleTodo(it)
@@ -50,6 +53,19 @@ class MainActivity : AppCompatActivity() {
             viewModel.addTodo(todo)
             binding.recyclerView.adapter?.notifyDataSetChanged()
         }
+
+        /**
+         * 관찰하여 UI 업데이트 시키는 code
+         * viewModel 의 todoLiveData 이 바뀔때 마다
+         * it 으로 List<Todo> 가 넘어온다.
+         * LiveData 를 사용하면 화면 갱신 하는 code 를 한쪽에 몰아 넣을수 있음 [연결되어 있는 분산된 코드를 한곳에 모아 놓을수 있음]
+         * [분산]
+         */
+        viewModel.todoLiveData.observe(this, Observer {
+            // 리사이클러뷰 어댑터를 불러오는 하위 TodoAdapter 를 => 상위 adapter 로 Typecasting(다형성) 하여 setData 함수를 불러옴
+            (binding.recyclerView.adapter as TodoAdapter).setData(it)
+        })
+
     }
 
 
@@ -71,7 +87,8 @@ data class Todo(
  *
  */
 class TodoAdapter(
-    private val myDataset: List<Todo>,
+    // val -> var
+    private var myDataset: List<Todo>,
     // 이걸 통해서 밖으로 Todo객체를 TodoAdapter 밖으로 전달할 것이다. -> Unit 리턴 받을 것 없다.
     val onClickDeleteIcon: (todo: Todo) -> Unit,
     val onClickItem: (todo: Todo) -> Unit
@@ -132,6 +149,16 @@ class TodoAdapter(
 
     // Return the size of your dataset (invoked by the layout manager)
     override fun getItemCount() = myDataset.size
+
+    /**
+     * 이 함수를 호출하면 데이터가 변경된다.
+     */
+    fun setData(newData: List<Todo>){
+        myDataset = newData
+        notifyDataSetChanged()
+    }
+
+
 }// TodoAdapter
 
 
@@ -139,18 +166,27 @@ class TodoAdapter(
  * 뷰모델에서 데이터 관리
  */
 class MainViewModel : ViewModel() {
-    val data = arrayListOf<Todo>()
+    /**
+     * LiveData = 읽기 전용
+     * MutableLiveData = 추가수정삭제 가능
+     */
+    val todoLiveData = MutableLiveData<List<Todo>>()
 
+    // 밖에서 수정이 불가능 하게끔 private
+    private val data = arrayListOf<Todo>()
 
     // private 를 삭제하여 외부에서 접근 가능 하게 끔
     fun toggleTodo(todo: Todo) {
         todo.isDone = !todo.isDone
+        todoLiveData.value = data
     }
     fun addTodo(todo: Todo) {
         data.add(todo) // 데이터 추가 후에
+        todoLiveData.value = data
     }
     fun deleteTodo(todo: Todo) {
         data.remove(todo) // 데이터 삭제 후에 어댑터에 알려줘야 함.
+        todoLiveData.value = data
     }
 
 

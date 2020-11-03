@@ -23,14 +23,14 @@ android {
         }
     }
 
-    viewBinding { // 뷰바인딩 적용
+    // 뷰바인딩 적용
+    viewBinding {
         enabled = true
     }
-
     // ViewModel(Java8 버전)을 사용하기 위한 jvmTarget 업그레이드
     kotlinOptions {
         jvmTarget = "1.8"
-    }
+}
 
 }
 
