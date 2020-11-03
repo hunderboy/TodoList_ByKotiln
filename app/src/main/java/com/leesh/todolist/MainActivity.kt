@@ -8,35 +8,20 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.activity.viewModels
+import androidx.lifecycle.ViewModel
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.leesh.todolist.databinding.ActivityMainBinding
 import com.leesh.todolist.databinding.ItemTodoBinding
 
 class MainActivity : AppCompatActivity() {
-    /**
-     *  // build.gradle 에서 binding 을 설정해주면
-    // 각 화면 마다의 binding이 기본적으로 생성되어 있다.
-    // MainActivity => ActivityMainBinding
-     */
     private lateinit var binding: ActivityMainBinding
 
-
-//    private lateinit var recyclerView: RecyclerView
-//    private lateinit var viewAdapter: RecyclerView.Adapter<*>
-//    private lateinit var viewManager: RecyclerView.LayoutManager
-
-    // 데이터 리스트
-    /**
-     * 화면 회전 시에 생명주기에 의해서 기존화면이 파괴 되고 재생성된다.
-     * 그래서 구글에서 이러한 현상을 쉽게 해결해 주는 ViewModel 을 사용핼 볼꺼야~
-     */
-    private val data = arrayListOf<Todo>()
+    private val viewModel : MainViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        // 바인딩으로 수정
-//        setContentView(R.layout.activity_main)
         binding = ActivityMainBinding.inflate(layoutInflater)
         val view = binding.root
         setContentView(view)
@@ -44,67 +29,29 @@ class MainActivity : AppCompatActivity() {
 //        data.add(Todo("숙제"))
 //        data.add(Todo("청소", true))
 
-        // 리사이클러뷰 선언
-//        binding.recyclerView.layoutManager = LinearLayoutManager(this)
-//        binding.recyclerView.adapter = TodoAdapter(data,
-//            onClickDeleteIcon = {
-//                deleteTodo(it)
-//            }
-//        )
         // 위에도 같은 코드가 반복되어서 줄일수 있을것 같다~
         binding.recyclerView.apply {
             layoutManager = LinearLayoutManager(this@MainActivity)
             adapter = TodoAdapter(
-                data,
+                viewModel.data, // 빈 리스트(일단 에러가 나지 않게 코틀린에서 제공함.)
                 onClickDeleteIcon = {
-                    deleteTodo(it)
+                    viewModel.deleteTodo(it)
+                    binding.recyclerView.adapter?.notifyDataSetChanged()
                 },
                 onClickItem = {
-                    toggleTodo(it)
+                    viewModel.toggleTodo(it)
+                    binding.recyclerView.adapter?.notifyDataSetChanged()
                 }
             )
         }
 
-
-//        viewManager = LinearLayoutManager(this)
-//        viewAdapter = TodoAdapter(myDataset)
-//
-//        recyclerView = findViewById<RecyclerView>(R.id.my_recycler_view).apply {
-//            // use this setting to improve performance if you know that changes
-//            // in content do not change the layout size of the RecyclerView
-//
-//            /*** // 사이즈가 변할일이 없을때는 성능이 좋아지는 건데... // 추가 삭제를 할거기 때문에 쓸일이 없다. */
-//            setHasFixedSize(true)
-//
-//            // use a linear layout manager
-//            layoutManager = viewManager
-//
-//            // specify an viewAdapter (see also next example)
-//            adapter = viewAdapter
-
-
         binding.addButton.setOnClickListener {
-            addTodo() // 추가 메소드 실행
+            val todo = Todo(binding.editText.text.toString())
+            viewModel.addTodo(todo)
+            binding.recyclerView.adapter?.notifyDataSetChanged()
         }
     }
 
-    private fun toggleTodo(todo: Todo) {
-        todo.isDone = !todo.isDone
-        binding.recyclerView.adapter?.notifyDataSetChanged()
-    }
-
-
-    private fun addTodo() {
-        val todo = Todo(binding.editText.text.toString()) // isDone 은 false 가 기본값
-        data.add(todo) // 데이터 추가 후에
-        // 어댑터에 알려줘야 함.
-        binding.recyclerView.adapter?.notifyDataSetChanged() // adapter? = null 일수 없게 방지한다.
-    }
-
-    private fun deleteTodo(todo: Todo) {
-        data.remove(todo) // 데이터 삭제 후에 어댑터에 알려줘야 함.
-        binding.recyclerView.adapter?.notifyDataSetChanged() // adapter? = null 일수 없게 방지한다.
-    }
 
 
 }
@@ -181,9 +128,31 @@ class TodoAdapter(
         holder.binding.root.setOnClickListener() {
             onClickItem.invoke(todo)
         }
-
     }
 
     // Return the size of your dataset (invoked by the layout manager)
     override fun getItemCount() = myDataset.size
+}// TodoAdapter
+
+
+/**
+ * 뷰모델에서 데이터 관리
+ */
+class MainViewModel : ViewModel() {
+    val data = arrayListOf<Todo>()
+
+
+    // private 를 삭제하여 외부에서 접근 가능 하게 끔
+    fun toggleTodo(todo: Todo) {
+        todo.isDone = !todo.isDone
+    }
+    fun addTodo(todo: Todo) {
+        data.add(todo) // 데이터 추가 후에
+    }
+    fun deleteTodo(todo: Todo) {
+        data.remove(todo) // 데이터 삭제 후에 어댑터에 알려줘야 함.
+    }
+
+
 }
+
