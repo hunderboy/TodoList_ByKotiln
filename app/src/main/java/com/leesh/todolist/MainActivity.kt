@@ -6,6 +6,7 @@ import android.graphics.Paint
 import android.graphics.Typeface
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.*
 import android.widget.TextView
 import androidx.activity.viewModels
@@ -17,10 +18,14 @@ import androidx.recyclerview.widget.RecyclerView
 import com.firebase.ui.auth.AuthUI
 import com.firebase.ui.auth.IdpResponse
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
 import com.leesh.todolist.databinding.ActivityMainBinding
 import com.leesh.todolist.databinding.ItemTodoBinding
 
 class MainActivity : AppCompatActivity() {
+
+    private val TAG = this::class.java.simpleName
 
     val rc_SIGN_IN = 1000;
     private lateinit var binding: ActivityMainBinding
@@ -37,7 +42,6 @@ class MainActivity : AppCompatActivity() {
         if (FirebaseAuth.getInstance().currentUser == null) {
             login()
         }
-
 
 
         // 임시 데이터 삽입
@@ -89,8 +93,8 @@ class MainActivity : AppCompatActivity() {
 
             if (resultCode == Activity.RESULT_OK) {
                 // Successfully signed in
-                val user = FirebaseAuth.getInstance().currentUser
-                // ...
+//                val user = FirebaseAuth.getInstance().currentUser
+                viewModel.fetchData()
             } else {
                 // 로그인 실패
                 finish()
@@ -98,7 +102,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    fun login(){
+    fun login() {
         val providers = arrayListOf(AuthUI.IdpConfig.EmailBuilder().build())
 
         startActivityForResult(
@@ -106,9 +110,11 @@ class MainActivity : AppCompatActivity() {
                 .createSignInIntentBuilder()
                 .setAvailableProviders(providers)
                 .build(),
-            rc_SIGN_IN)
+            rc_SIGN_IN
+        )
     }
-    fun logout(){
+
+    fun logout() {
         AuthUI.getInstance()
             .signOut(this)
             .addOnCompleteListener {
@@ -136,7 +142,6 @@ class MainActivity : AppCompatActivity() {
             else -> super.onOptionsItemSelected(item)
         }
     }
-
 
 
 }
@@ -235,6 +240,9 @@ class TodoAdapter(
  * 뷰모델에서 데이터 관리
  */
 class MainViewModel : ViewModel() {
+    // Access a Cloud Firestore instance from your Activity
+    val db = Firebase.firestore
+
     /**
      * LiveData = 읽기 전용
      * MutableLiveData = 추가수정삭제 가능
@@ -243,6 +251,37 @@ class MainViewModel : ViewModel() {
 
     // 밖에서 수정이 불가능 하게끔 private
     private val data = arrayListOf<Todo>()
+
+    // 초기화 메소드
+    init {
+        fetchData()
+    }
+
+    fun fetchData(){
+        // 로그인 된 유저의 UID 연결
+        val user = FirebaseAuth.getInstance().currentUser // 없을 수도 있기에 null 체크 해줘야 함.
+        if (user != null) { // 유저가 null 아니라면 실행
+            db.collection(user.uid) // collection 명 = user.uid
+                .get()
+                .addOnSuccessListener { result ->
+                    data.clear()
+                    for (document in result) {
+                        // Log.d(TAG, "${document.id} => ${document.data}")
+                        val todo = Todo(
+                            document.data["text"] as String,
+                            document.data["isDone"] as Boolean
+                        )
+                        data.add(todo)
+                    }
+                    todoLiveData.value = data
+                }
+                .addOnFailureListener { exception ->  // 데이터 받아오기 실패 했을 경우
+                    Log.w("MainViewModel", "Error getting documents.", exception) // 예외 Log
+                }
+        }
+
+    }
+
 
     // private 를 삭제하여 외부에서 접근 가능 하게 끔
     fun toggleTodo(todo: Todo) {
