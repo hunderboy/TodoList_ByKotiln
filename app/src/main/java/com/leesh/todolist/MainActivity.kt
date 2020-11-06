@@ -262,22 +262,49 @@ class MainViewModel : ViewModel() {
         val user = FirebaseAuth.getInstance().currentUser // 없을 수도 있기에 null 체크 해줘야 함.
         if (user != null) { // 유저가 null 아니라면 실행
             db.collection(user.uid) // collection 명 = user.uid
-                .get()
-                .addOnSuccessListener { result ->
+                // 자동으로 갱신되는 데이터
+                .addSnapshotListener { value, e ->
+                    if (e != null) {    // 에러가 null 이 아니라면
+                        Log.w("MainViewModel", "Listen failed.", e)
+                        return@addSnapshotListener // 바로 종료
+                    }
+
+                    /**
+                     * Todo 실시간 리얼타임 !!! 중요!1
+                     */
                     data.clear()
-                    for (document in result) {
+                    for (document in value!!) {
                         // Log.d(TAG, "${document.id} => ${document.data}")
                         val todo = Todo(
-                            document.data["text"] as String,
-                            document.data["isDone"] as Boolean
+                            /**
+                             * 데이터 실시간 체크
+                             */
+                            document.data["text"] as String ?: "", // null 일경우 빈 공백 처리
+                            document.data["isDone"] as Boolean ?: false // null 일경우 false 처리
                         )
                         data.add(todo)
                     }
                     todoLiveData.value = data
+
+
                 }
-                .addOnFailureListener { exception ->  // 데이터 받아오기 실패 했을 경우
-                    Log.w("MainViewModel", "Error getting documents.", exception) // 예외 Log
-                }
+
+//                .get()
+//                .addOnSuccessListener { result ->
+//                    data.clear()
+//                    for (document in result) {
+//                        // Log.d(TAG, "${document.id} => ${document.data}")
+//                        val todo = Todo(
+//                            document.data["text"] as String,
+//                            document.data["isDone"] as Boolean
+//                        )
+//                        data.add(todo)
+//                    }
+//                    todoLiveData.value = data
+//                }
+//                .addOnFailureListener { exception ->  // 데이터 받아오기 실패 했을 경우
+//                    Log.w("MainViewModel", "Error getting documents.", exception) // 예외 Log
+//                }
         }
 
     }
