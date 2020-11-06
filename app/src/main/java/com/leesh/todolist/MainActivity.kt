@@ -18,6 +18,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.firebase.ui.auth.AuthUI
 import com.firebase.ui.auth.IdpResponse
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.DocumentSnapshot
+import com.google.firebase.firestore.QueryDocumentSnapshot
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.leesh.todolist.databinding.ActivityMainBinding
@@ -162,10 +164,10 @@ data class Todo(
  */
 class TodoAdapter(
     // val -> var
-    private var myDataset: List<Todo>,
+    private var myDataset: List<DocumentSnapshot>,
     // 이걸 통해서 밖으로 Todo객체를 TodoAdapter 밖으로 전달할 것이다. -> Unit 리턴 받을 것 없다.
-    val onClickDeleteIcon: (todo: Todo) -> Unit,
-    val onClickItem: (todo: Todo) -> Unit
+    val onClickDeleteIcon: (todo: DocumentSnapshot) -> Unit,
+    val onClickItem: (todo: DocumentSnapshot) -> Unit
 ) :
     RecyclerView.Adapter<TodoAdapter.TodoViewHolder>() {
 
@@ -188,15 +190,10 @@ class TodoAdapter(
 
     // Replace the contents of a view (invoked by the layout manager)
     override fun onBindViewHolder(holder: TodoViewHolder, position: Int) {
-//        val textView = holder.view.findViewById<TextView>(R.id.todo_text) // view binding(뷰 바인딩) 적용할 예정
-//        textView.text = myDataset[position].text
-
         val todo = myDataset[position]
+        holder.binding.todoText.text = todo.getString("text") ?: ""
 
-        // 아래 코드로 바인딩 설정
-        holder.binding.todoText.text = myDataset[position].text
-
-        if (todo.isDone) { // 할일이 완료된 경우
+        if ( (todo.getBoolean("isDone") ?: false) == true ) { // 할일이 완료된 경우
 //            holder.binding.todoText.paintFlags = holder.binding.todoText.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
             // 우리는 코틀린으로 코딩을 하는 중이기 때문에 위의 긴 코드 중에서 중복되는 부분을 줄일수 있다. -> apply 함수 사용
             holder.binding.todoText.apply {
@@ -227,7 +224,7 @@ class TodoAdapter(
     /**
      * 이 함수를 호출하면 데이터가 변경된다.
      */
-    fun setData(newData: List<Todo>) {
+    fun setData(newData: List<DocumentSnapshot>) {
         myDataset = newData
         notifyDataSetChanged()
     }
@@ -236,96 +233,84 @@ class TodoAdapter(
 }// TodoAdapter
 
 
+
+
+
 /**
  * 뷰모델에서 데이터 관리
  */
 class MainViewModel : ViewModel() {
-    // Access a Cloud Firestore instance from your Activity
     val db = Firebase.firestore
+    val todoLiveData = MutableLiveData<List<DocumentSnapshot>>()
 
-    /**
-     * LiveData = 읽기 전용
-     * MutableLiveData = 추가수정삭제 가능
-     */
-    val todoLiveData = MutableLiveData<List<Todo>>()
-
-    // 밖에서 수정이 불가능 하게끔 private
-    private val data = arrayListOf<Todo>()
-
-    // 초기화 메소드
     init {
         fetchData()
     }
 
     fun fetchData(){
-        // 로그인 된 유저의 UID 연결
         val user = FirebaseAuth.getInstance().currentUser // 없을 수도 있기에 null 체크 해줘야 함.
         if (user != null) { // 유저가 null 아니라면 실행
             db.collection(user.uid) // collection 명 = user.uid
                 // 자동으로 갱신되는 데이터
                 .addSnapshotListener { value, e ->
-                    if (e != null) {    // 에러가 null 이 아니라면
+                    if (e != null) {
                         Log.w("MainViewModel", "Listen failed.", e)
                         return@addSnapshotListener // 바로 종료
                     }
 
-                    /**
-                     * Todo 실시간 리얼타임 !!! 중요!1
-                     */
-                    data.clear()
-                    for (document in value!!) {
-                        // Log.d(TAG, "${document.id} => ${document.data}")
-                        val todo = Todo(
-                            /**
-                             * 데이터 실시간 체크
-                             */
-                            document.data["text"] as String ?: "", // null 일경우 빈 공백 처리
-                            document.data["isDone"] as Boolean ?: false // null 일경우 false 처리
-                        )
-                        data.add(todo)
+                    if (value != null){
+                        todoLiveData.value = value.documents
                     }
-                    todoLiveData.value = data
-
 
                 }
-
-//                .get()
-//                .addOnSuccessListener { result ->
-//                    data.clear()
-//                    for (document in result) {
-//                        // Log.d(TAG, "${document.id} => ${document.data}")
-//                        val todo = Todo(
-//                            document.data["text"] as String,
-//                            document.data["isDone"] as Boolean
-//                        )
-//                        data.add(todo)
-//                    }
-//                    todoLiveData.value = data
-//                }
-//                .addOnFailureListener { exception ->  // 데이터 받아오기 실패 했을 경우
-//                    Log.w("MainViewModel", "Error getting documents.", exception) // 예외 Log
-//                }
         }
-
     }
 
-
-    // private 를 삭제하여 외부에서 접근 가능 하게 끔
-    fun toggleTodo(todo: Todo) {
-        todo.isDone = !todo.isDone
-        todoLiveData.value = data
+    fun toggleTodo(todo: DocumentSnapshot) {
+//        todo.isDone = !todo.isDone
+//        todoLiveData.value = data
     }
-
     fun addTodo(todo: Todo) {
-        data.add(todo) // 데이터 추가 후에
-        todoLiveData.value = data
+        FirebaseAuth.getInstance().currentUser?. let { user ->//  currentUser? = 이것이 null 이 아닐때만 실행하게끔 하자
+            db.collection(user.uid).add(todo)
+                .addOnSuccessListener { documentReference ->
+                    Log.d("data add Success", "DocumentSnapshot written with ID: ${documentReference.id}")
+                }
+                .addOnFailureListener { e ->
+                    Log.w("data add Failure", "Error adding document", e)
+                }
+        }
     }
-
-    fun deleteTodo(todo: Todo) {
-        data.remove(todo) // 데이터 삭제 후에 어댑터에 알려줘야 함.
-        todoLiveData.value = data
+    fun deleteTodo(todo: DocumentSnapshot) {
+        /**
+         * 삭제를 위해서는 Document 의 uid 필요
+         */
+        FirebaseAuth.getInstance().currentUser?. let { user ->//  currentUser? = 이것이 null 이 아닐때만 실행하게끔 하자
+            db.collection(user.uid).document(todo.id).delete()
+                .addOnSuccessListener { Log.d("deleteTodo_success", "DocumentSnapshot successfully deleted!") }
+                .addOnFailureListener { e -> Log.w("deleteTodo_failure", "Error deleting document", e) }
+        }
     }
 
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
