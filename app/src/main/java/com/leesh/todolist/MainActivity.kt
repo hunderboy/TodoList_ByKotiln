@@ -90,6 +90,7 @@ class MainActivity : AppCompatActivity() {
             if (resultCode == Activity.RESULT_OK) {
                 // Successfully signed in
                 val user = FirebaseAuth.getInstance().currentUser
+//                String phone =  user
                 // ...
             } else {
                 // 로그인 실패

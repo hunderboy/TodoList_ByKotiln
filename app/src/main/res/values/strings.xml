@@ -1,3 +1,240 @@
 <resources>
     <string name="app_name">TodoList</string>
+
+
+    <string name="login">로그인</string>
+    <string name="join">회원가입</string>
+    <string name="id">아이디</string>
+    <string name="next">다음</string>
+    <string name="intro_msg">EverEx 앱은 Everex 제품과 연동하여 무릎 건강을 위한 운동을 할수있도록 도와드립니다</string>
+
+    <string name="select_exercise_mode">운동모드 선택</string>
+    <string name="play_exercise">운동하기</string>
+    <string name="bluetooth_setting">블루투스 설정</string>
+    <string name="connect_device">기기연결</string>
+    <string name="terms_of_use">이용약관</string>
+    <string name="terms_of_use_join">회원가입 약관</string>
+    <string name="consent_to_use_of_pi">개인정보 활용동의</string>드
+    <string name="terms_of_use_contents">
+        제 1 장 총칙
+\n제 1 조 (목적)
+\n1. 본 약관은 기업마당 사이트가 제공하는 모든 서비스(이하 "서비스")의 이용조건
+ 및 절차, 이용자와 기업마당 사이트의 권리, 의무, 책임사항과 기타 필요한 사항을
+규정함을 목적으로 합니다.
+\n제 2 조 (약관의 효력과 변경)
+1. 기업마당 사이트는 귀하가 본 약관 내용에 동의하는 경우 기업마당 사이트의
+서비스 제공 행위 및 귀하의 서비스 사용 행위에 본 약관이 우선적으로 적용됩니다.
+        \n\n  제 1 장 총칙
+\n제 1 조 (목적)
+\n1. 본 약관은 기업마당 사이트가 제공하는 모든 서비스(이하 "서비스")의 이용조건
+ 및 절차, 이용자와 기업마당 사이트의 권리, 의무, 책임사항과 기타 필요한 사항을
+규정함을 목적으로 합니다.
+\n제 2 조 (약관의 효력과 변경)
+1. 기업마당 사이트는 귀하가 본 약관 내용에 동의하는 경우 기업마당 사이트의
+서비스 제공 행위 및 귀하의 서비스 사용 행위에 본 약관이 우선적으로 적용됩니다.
+        \n\n  제 1 장 총칙
+\n제 1 조 (목적)
+\n1. 본 약관은 기업마당 사이트가 제공하는 모든 서비스(이하 "서비스")의 이용조건
+ 및 절차, 이용자와 기업마당 사이트의 권리, 의무, 책임사항과 기타 필요한 사항을
+규정함을 목적으로 합니다.
+\n제 2 조 (약관의 효력과 변경)
+1. 기업마당 사이트는 귀하가 본 약관 내용에 동의하는 경우 기업마당 사이트의
+서비스 제공 행위 및 귀하의 서비스 사용 행위에 본 약관이 우선적으로 적용됩니다.</string>
+
+    <string name="consent_to_use_of_pi_contents">
+1. 개인정보 수집 · 이용 목적
+
+주방 플래닝 상담 예약 및 효과적인 상담업무를 위한 목적으로 개인 정보를 수집 ·
+이용합니다.
+
+2. 수집하는 개인정보
+이름, 이메일(email) 주소, 휴대전화번호
+
+3. 개인정보의 보유 · 이용 기간
+수집된 개인정보는 주방 플래닝 상담 업무가 종료될 때까지 이용되며, 이용이됩니다.
+\n\n1. 개인정보 수집 · 이용 목적
+
+주방 플래닝 상담 예약 및 효과적인 상담업무를 위한 목적으로 개인 정보를 수집 ·
+이용합니다.
+
+2. 수집하는 개인정보
+이름, 이메일(email) 주소, 휴대전화번호
+
+3. 개인정보의 보유 · 이용 기간
+수집된 개인정보는 주방 플래닝 상담 업무가 종료될 때까지 이용되며, 이용이됩니다.
+        \n\n1. 개인정보 수집 · 이용 목적
+
+주방 플래닝 상담 예약 및 효과적인 상담업무를 위한 목적으로 개인 정보를 수집 ·
+이용합니다.
+
+2. 수집하는 개인정보
+이름, 이메일(email) 주소, 휴대전화번호
+
+3. 개인정보의 보유 · 이용 기간
+수집된 개인정보는 주방 플래닝 상담 업무가 종료될 때까지 이용되며, 이용이됩니다.</string>
+
+    <string name="ok">확인</string>
+    <string name="cancel">취소</string>
+    <string name="video_play">비디오 보기</string>
+    <string name="video_upload">비디오 업로드</string>
+    <string name="video_select">비디오 선택</string>
+    <string name="video_upload_processing">비디오 업로드중...</string>
+
+
+    <string name="labelinput">labelinput</string>
+    <string name="label">label</string>
+    <string name="line">------------------------------------------------------------</string>
+
+
+    <!--
+    회원가입 유효성 검사
+    -->
+    <string name="input_IdEmail">아이디(Email)</string>
+    <string name="input_id">이메일을 입력해주세요.</string>
+
+    <string name="name">이름</string>
+    <string name="input_name">이름을 입력해주세요.</string>
+    <string name="password">비밀번호(영문+숫자+특수문자 조합 6~10자)</string>
+    <string name="password_confirm">비밀번호 확인</string>
+    <string name="input_password">비밀번호를 입력해주세요.</string>
+    <string name="confirm_password">비밀번호를 "확인"해주세요.</string>
+    <string name="email">이메일</string>
+    <string name="input_email">이메일을 입력해주세요.</string>
+    <string name="phone">전화번호</string>
+    <string name="input_phone">전화번호를 입력해주세요.( - 제외)</string>
+    <string name="input_email_phone">전화번호를 입력해주세요.</string>
+    <string name="input_id_email_phone">아이디, 전화번호 모두 입력해주세요.</string>
+    <string name="birthday">생년월일</string>
+    <string name="year">년</string>
+    <string name="input_year">생년을 입력해주세요.</string>
+    <string name="month">월</string>
+    <string name="input_month">생월을 입력해주세요.</string>
+    <string name="day">일</string>
+    <string name="input_day">생일을 입력해주세요.</string>
+    <string name="height_weight">신장/체중</string>
+    <string name="height">cm</string>
+    <string name="weight">kg</string>
+    <string name="knee_state">무릎상태</string>
+    <string name="knee_state_contents">(1개만 선택 가능합니다.)</string>
+    <string name="body_state">전신상태</string>
+    <string name="body_state_contents">(중복 선택 가능합니다.)</string>
+    <string name="exercise_mode">운동모드</string>
+    <string name="usage_pattern">사용패턴</string>
+
+    <string name="yes">예</string>
+    <string name="no">아니오</string>
+
+    <string name="menu1">운동모드</string>
+    <string name="menu2">영상모음</string>
+    <string name="menu3">사용패턴</string>
+    <string name="menu4">블루투스</string>
+    <string name="menu5">설정</string>
+
+    <string name="usage_today">오늘</string>
+    <string name="usage_week">주간</string>
+    <string name="usage_month">월간</string>
+    <string name="usage_year">연간</string>
+
+    <string name="find_id">아이디 찾기</string>
+    <string name="find_pw">비밀번호 찾기</string>
+    <string name="no_login">로그인하지않고 계속하기</string>
+
+    <string name="find_id_result">회원님의 아이디는</string>
+    <string name="find_id_fail">존재하지 않습니다.</string>
+
+    <string name="find_pw_result">회원님의 비밀번호는</string>
+    <string name="find_pw_fail">존재하지 않습니다.</string>
+
+    <string name="popup_find_id"><![CDATA[아이디는 <font color=#19d3a9><b>%s</b></font> 입니다.]]> </string>
+    <string name="popup_find_pw"><![CDATA[비밀번호는 <font color=#19d3a9><b>%s</b></font> 입니다.]]> </string>
+
+    <string name="popup_find_id_fail"><![CDATA[아이디가 <font color=#19d3a9><b>존재하지 않습니다.</b></font>]]> </string>
+    <string name="popup_find_pw_fail"><![CDATA[비밀번호가 <font color=#19d3a9><b>존재하지 않습니다.</b></font>]]> </string>
+
+    <string name="no_address">주소정보가 없습니다.</string>
+    <string name="no_connected">기기가 연결되지 않았습니다.</string>
+
+    <!--
+    회원가입 무릎상태 중복선택 안
+    -->
+    <string name="knee_state1">정상</string>
+    <string name="knee_state2">전방무릎통증</string>
+    <string name="knee_state3">관절염</string>
+    <string name="knee_state4">수술 후 재활</string>
+
+    <!--
+    회원가입 전신상태 중복선택 가능
+    -->
+    <string name="body_state1">정상</string>
+    <string name="body_state2">고혈압</string>
+    <string name="body_state3">당뇨</string>
+    <string name="body_state4">고지혈증</string>
+    <string name="body_state5">골다공증</string>
+    <string name="body_state6">기타</string>
+
+    <string name="exercise_mode1">걷기</string>
+    <string name="exercise_mode2">조깅</string>
+    <string name="exercise_mode3">앉아서 들기</string>
+    <string name="exercise_mode4">스쿼트</string>
+
+    <string name="device_left">왼쪽</string>
+    <string name="device_right">오른쪽</string>
+
+    <string name="start">시작</string>
+    <string name="stop">종료</string>
+    <string name="exercise_stop">운동종료</string>
+    <string name="exercise_next">다음 운동으로 넘어가기></string>
+
+    <!--
+    차트 관련
+    -->
+    <string name="viewGithub">View on GitHub</string>
+    <string name="reportProblem">Problem Report</string>
+    <string name="viewWebsite">Developer Website</string>
+    <string name="actionSave">Save to Gallery</string>
+
+    <string name="animateX">Animate X</string>
+    <string name="animateY">Animate Y</string>
+    <string name="animateXY">Animate XY</string>
+
+    <string name="actionToggleValues">Toggle Values</string>
+    <string name="actionToggleYValues">Toggle Y-Values</string>
+    <string name="actionToggleXValues">Toggle X-Values</string>
+
+    <string name="actionToggleIcons">Toggle Icons</string>
+    <string name="actionToggleHighlight">Toggle Highlight</string>
+    <string name="actionTogglePinch">Toggle PinchZoom</string>
+    <string name="actionToggleAutoScale">Toggle Auto Scale</string>
+
+    <string name="actionToggleLineValues">Toggle Line Values</string>
+    <string name="actionToggleBarValues">Toggle Bar Values</string>
+    <string name="actionToggleBarBorders">Toggle Bar Borders</string>
+    <string name="actionToggleFilled">Toggle Filled</string>
+    <string name="actionToggleCircles">Toggle Circles</string>
+    <string name="actionToggleCandleShadow">Toggle Shadow Color</string>
+
+    <string name="actionToggleCubic">Toggle Cubic</string>
+    <string name="actionToggleStepped">Toggle Stepped</string>
+    <string name="actionToggleHorizontalCubic">Toggle Horizontal Cubic</string>
+
+    <string name="actionAddEntry">Add Entry</string>
+    <string name="actionFeedMultiple">Add Multiple</string>
+    <string name="actionRemoveEntry">Remove Entry</string>
+    <string name="actionAddDataSet">Add Data Set</string>
+    <string name="actionRemoveDataSet">Remove Data Set</string>
+    <string name="actionClearChart">Clear chart</string>
+
+    <string name="actionTogglePercent">Toggle Percent</string>
+    <string name="actionToggleMinAngles">Toggle Minimum Angles</string>
+    <string name="actionToggleHole">Toggle Hole</string>
+    <string name="actionToggleCurvedSlices">Toggle Curved Slices</string>
+    <string name="actionDrawCenterText">Draw Center Text</string>
+    <string name="actionToggleHighlightCircle">Toggle Highlight Circle</string>
+    <string name="actionToggleRotation">Toggle Rotation</string>
+    <string name="actionToggleSpin">Spin Animation</string>
+
+    <string name="dash">-</string>
+    <string name="scrollViewStart">START OF SCROLLVIEW</string>
+    <string name="scrollViewEnd">END OF SCROLLVIEW</string>
+
 </resources>

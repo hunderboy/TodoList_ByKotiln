@@ -36,19 +36,22 @@ android {
     // ViewModel(Java8 버전)을 사용하기 위한 jvmTarget 업그레이드
     kotlinOptions {
         jvmTarget = "1.8"
-}
+    }
 
 }
 
 dependencies {
     // 파이어베이스
     implementation platform('com.google.firebase:firebase-bom:26.0.0') // BOM 모듈 전체 버전 관리
-//    implementation 'com.google.firebase:firebase-auth-ktx'      // 인증
+    implementation 'com.google.firebase:firebase-auth-ktx'      // 인증
     implementation 'com.google.firebase:firebase-analytics-ktx' // 분석툴
-    implementation 'com.firebaseui:firebase-ui-auth:6.2.0'
+    implementation 'com.firebaseui:firebase-ui-auth:6.2.0' // 파이어베이스 자체 UI 인증
 
     // 비밀번호 암호화
     implementation group: 'de.svenkubiak', name: 'jBCrypt', version: '0.4.1'
+
+    // 머티리얼 디자인
+    implementation 'com.google.android.material:material:1.2.1' // 머티리얼 디자인 1.0.0 => 1.2.1
 
 
     implementation fileTree(dir: 'libs', include: ['*.jar'])

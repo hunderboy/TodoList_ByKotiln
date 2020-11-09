@@ -3,4 +3,24 @@
     <color name="colorPrimary">#6200EE</color>
     <color name="colorPrimaryDark">#3700B3</color>
     <color name="colorAccent">#03DAC5</color>
+
+
+    <color name="colorWhite">#ffffff</color>
+    <color name="colorIdentity">#19d3a9</color>
+
+    <color name="colorTxtInput">#171717</color>
+    <color name="colorTxtBlack1">#2e2f30</color>
+    <color name="colorTxtGrey1">#757575</color>
+    <color name="colorTxtGrey2">#afafaf</color>
+    <color name="colorTxtHint">#e3e6e9</color>
+    <color name="colorTxtGrey3">#f0f3f6</color>
+    <color name="colorTxtGreen">#00d7a7</color>
+    <color name="colorTxtRed">#D81B60</color>
+
+    <color name="colorInActive">#e3e6e9</color>
+    <color name="colorActive">#19d3a9</color>
+
+
+
+
 </resources>
