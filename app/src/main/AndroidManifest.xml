@@ -8,20 +8,24 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
-        <activity android:name=".SelectLoginOrJoinActivity"></activity>
-        <activity android:name=".IntroActivity" />
-        <activity android:name=".InputBodyStateToJoinActivity" />
-        <activity android:name=".JoinActivity" />
-        <activity android:name=".TermsOfUseActivity" />
-        <activity android:name=".LoginActivity" />
-        <activity android:name=".MainActivity">
+        android:theme="@style/MaterialAppTheme">
+        <!-- 이어 지는 순서대로 화면 나열 -->
+        <activity android:name=".IntroActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".SelectLoginOrJoinActivity" />
+        <activity android:name=".LoginActivity" />
+        <activity android:name=".JoinActivity" />
+        <activity android:name=".InputBodyStateToJoinActivity" />
+        <activity android:name=".TermsOfUseActivity" />
+
+        <activity android:name=".MainActivity" />
+
+
     </application>
 
 </manifest>

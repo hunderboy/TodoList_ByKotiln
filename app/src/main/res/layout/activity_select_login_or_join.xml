@@ -8,22 +8,61 @@
 
 
     <ImageView
-        android:id="@+id/imageView"
+        android:id="@+id/imageView_company_logo"
         android:layout_width="96dp"
         android:layout_height="96dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/Union_mint" />
-
-    <ImageView
-        android:id="@+id/imageView3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.2"
+        android:contentDescription="@string/logo_mint"
+        app:srcCompat="@drawable/union_mint" />
+
+    <ImageView
+        android:id="@+id/imageView_company_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_20"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView_company_logo"
+        android:contentDescription="@string/logo_name"
         app:srcCompat="@drawable/everex_name_navy" />
+
+    <Button
+        android:id="@+id/Login_button"
+        android:layout_width="@dimen/width_190"
+        android:layout_height="@dimen/height_52"
+        android:layout_marginTop="@dimen/margin_178"
+
+        android:background="@drawable/radius_mint_button"
+        android:stateListAnimator="@null"
+        android:text="@string/login"
+        android:textColor="@color/colorWhite"
+
+        android:textSize="@dimen/font_18"
+        android:textStyle="bold"
+
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView_company_name" />
+
+    <Button
+        android:id="@+id/Join_button"
+        android:layout_width="@dimen/width_190"
+        android:layout_height="@dimen/height_52"
+        android:layout_marginTop="@dimen/margin_40"
+
+        android:text="@string/join"
+        android:textSize="@dimen/font_18"
+        android:textStyle="bold"
+        android:textColor="@color/colorIntro"
+
+        android:background="@drawable/radius_mint_outline_button"
+
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/Login_button" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
