@@ -17,7 +17,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.2"
         android:contentDescription="@string/logo_mint"
-        app:srcCompat="@drawable/union_mint" />
+        app:srcCompat="@drawable/company_logo_mint" />
 
     <ImageView
         android:id="@+id/imageView_company_name"
