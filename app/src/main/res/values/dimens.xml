@@ -52,11 +52,14 @@
     <dimen name="height_106">106dp</dimen>
     <dimen name="height_100">100dp</dimen>
     <dimen name="height_110">110dp</dimen>
+    <dimen name="height_120">120dp</dimen>
+
 
     <dimen name="width_13">13dp</dimen>
     <dimen name="width_33">33dp</dimen>
     <dimen name="width_45">45dp</dimen>
     <dimen name="width_84">84dp</dimen>
+    <dimen name="width_120">120dp</dimen>
     <dimen name="width_150">150dp</dimen>
     <dimen name="width_160">160dp</dimen>
 

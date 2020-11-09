@@ -185,6 +185,11 @@
     <string name="exercise_stop">운동종료</string>
     <string name="exercise_next">다음 운동으로 넘어가기></string>
 
+
+
+    <string name="logo_white">로고 이미지-화이트</string>
+
+
     <!--
     차트 관련
     -->
