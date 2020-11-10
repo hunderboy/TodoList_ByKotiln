@@ -5,6 +5,7 @@
     <color name="colorAccent">#03DAC5</color>
 
 
+    <!--    투명색-->
     <color name="colorWhite">#ffffff</color>
     <color name="colorIdentity">#19d3a9</color>
 
@@ -21,6 +22,7 @@
     <color name="colorActive">#19d3a9</color>
 
     <color name="colorIntro">#07BEB8</color>
+    <color name="colorIntroDark">#0AC9FF</color>
     <color name="colorTransparency">#07BEB8</color>
 
 

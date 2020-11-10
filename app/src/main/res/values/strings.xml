@@ -89,17 +89,25 @@
     <!--
     회원가입 유효성 검사
     -->
+    <string name="Hello">안녕하세요!</string>
+
     <string name="input_IdEmail">아이디(Email)</string>
     <string name="input_id">이메일을 입력해주세요.</string>
 
+
     <string name="name">이름</string>
     <string name="input_name">이름을 입력해주세요.</string>
+    <string name="input_email">이메일을 입력해주세요.</string>
+    <string name="input_password">비밀번호를 입력해주세요.</string>
+    <string name="password_subject">비밀번호</string>
+    <string name="password_uppercase">영문 대문자</string>
+    <string name="password_term_10cher_more">최소 10문자 이상</string>
+    <string name="password_term_SpecialCharacters">특수문자</string>
+
     <string name="password">비밀번호(영문+숫자+특수문자 조합 6~10자)</string>
     <string name="password_confirm">비밀번호 확인</string>
-    <string name="input_password">비밀번호를 입력해주세요.</string>
     <string name="confirm_password">비밀번호를 "확인"해주세요.</string>
     <string name="email">이메일</string>
-    <string name="input_email">이메일을 입력해주세요.</string>
     <string name="phone">전화번호</string>
     <string name="input_phone">전화번호를 입력해주세요.( - 제외)</string>
     <string name="input_email_phone">전화번호를 입력해주세요.</string>

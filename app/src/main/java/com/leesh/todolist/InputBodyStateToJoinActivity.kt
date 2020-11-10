@@ -10,4 +10,7 @@ class InputBodyStateToJoinActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_input_body_state_to_join)
     }
+
+
+
 }

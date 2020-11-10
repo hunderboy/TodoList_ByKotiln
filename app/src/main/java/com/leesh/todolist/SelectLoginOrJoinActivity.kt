@@ -12,26 +12,20 @@ class SelectLoginOrJoinActivity : AppCompatActivity() {
         setContentView(R.layout.activity_select_login_or_join)
 
 
-
-
         // 로그인
-        Login_button.setOnClickListener {
+        button_login.setOnClickListener {
             val intent = Intent(this, LoginActivity::class.java)
 //            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP)
             startActivity(intent)
         }
         // 회원가입
-        Join_button.setOnClickListener {
+        button_join.setOnClickListener {
             val intent = Intent(this, JoinActivity::class.java)
 //            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP)
             startActivity(intent)
         }
 
-
-
     }
-
-
 
 
 }

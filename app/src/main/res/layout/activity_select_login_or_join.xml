@@ -33,16 +33,14 @@
 
 
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/Login_button"
+        android:id="@+id/button_login"
         android:layout_width="@dimen/width_190"
         android:layout_height="@dimen/height_52"
         android:layout_marginTop="@dimen/margin_178"
 
         android:background="@drawable/radius_mint_button"
-        android:stateListAnimator="@null"
         android:text="@string/login"
         android:textColor="@color/colorWhite"
-
         android:textSize="@dimen/font_18"
         android:textStyle="bold"
 
@@ -51,20 +49,22 @@
         app:layout_constraintTop_toBottomOf="@+id/imageView_company_name" />
 
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/Join_button"
+        android:id="@+id/button_join"
         android:layout_width="@dimen/width_190"
         android:layout_height="@dimen/height_52"
         android:layout_marginTop="@dimen/margin_40"
 
+        android:background="@drawable/radius_mint_outline_button"
         android:text="@string/join"
+        android:textColor="@color/colorIntro"
         android:textSize="@dimen/font_18"
         android:textStyle="bold"
-        android:textColor="@color/colorIntro"
-
-        android:background="@drawable/radius_mint_outline_button"
 
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/Login_button" />
+        app:layout_constraintTop_toBottomOf="@+id/button_login" />
+<!-- 뒤에 그림자 삭제 -->
+<!--    android:stateListAnimator="@null"-->
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
