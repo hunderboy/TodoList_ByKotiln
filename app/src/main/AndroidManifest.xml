@@ -9,6 +9,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/MaterialAppTheme">
+        <activity android:name=".ViewPagerVersion2Activity"></activity>
         <!-- 화면 이동 Flow 순서대로 나열 -->
         <activity android:name=".IntroActivity">
             <intent-filter>
@@ -22,10 +23,7 @@
         <activity android:name=".JoinActivity" />
         <activity android:name=".InputBodyStateToJoinActivity" />
         <activity android:name=".TermsOfUseActivity" />
-
         <activity android:name=".MainActivity" />
-
-
     </application>
 
 </manifest>
