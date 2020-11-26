@@ -21,11 +21,10 @@ import com.leesh.todolist.databinding.ActivityMainBinding
 import com.leesh.todolist.databinding.ItemTodoBinding
 
 class MainActivity : AppCompatActivity() {
-
-    val rc_SIGN_IN = 1000;
     private lateinit var binding: ActivityMainBinding
-
     private val viewModel: MainViewModel by viewModels()
+    val rc_SIGN_IN = 1000; // 로그인
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,9 +32,10 @@ class MainActivity : AppCompatActivity() {
         val view = binding.root
         setContentView(view)
 
-        // 로그인 상태 체크
+        // 로그인 상태 를 체크하는 것
+        // 현재 사용자 == null 이면
         if (FirebaseAuth.getInstance().currentUser == null) {
-            login()
+            login() // 로그인 프로세스 처리
         }
 
 
@@ -79,7 +79,11 @@ class MainActivity : AppCompatActivity() {
             (binding.recyclerView.adapter as TodoAdapter).setData(it)
         })
 
-    }
+    }// onCreate 종료
+
+
+
+
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
@@ -99,15 +103,17 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    // 로그인 처리
     fun login(){
+        // 파이어 베이스 자체적으로 가지고 있는, 이메일 인증 UI
         val providers = arrayListOf(AuthUI.IdpConfig.EmailBuilder().build())
 
         startActivityForResult(
             AuthUI.getInstance()
                 .createSignInIntentBuilder()
-                .setAvailableProviders(providers)
+                .setAvailableProviders(providers) // 이메일 인증 UI 화면 표시
                 .build(),
-            rc_SIGN_IN)
+            rc_SIGN_IN) // response 값
     }
     fun logout(){
         AuthUI.getInstance()
@@ -142,11 +148,19 @@ class MainActivity : AppCompatActivity() {
 
 }
 
+
+
+
+
 // 데이터 클래스로 사용할 클래스
 data class Todo(
     val text: String,
     var isDone: Boolean = false, // 기본 값 false
 )
+
+
+
+
 
 
 /**
@@ -230,6 +244,10 @@ class TodoAdapter(
 
 
 }// TodoAdapter
+
+
+
+
 
 
 /**
