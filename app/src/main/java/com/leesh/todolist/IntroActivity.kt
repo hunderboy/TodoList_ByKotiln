@@ -18,18 +18,18 @@ class IntroActivity : AppCompatActivity() {
 
 
 
-    public override fun onResume() {
-        super.onResume()  // Always call the superclass method first
-
-        val handler = Handler()
-        handler.postDelayed({
-            val intent = Intent(this, SelectLoginOrJoinActivity::class.java)
-            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP
-            startActivity(intent)
-            finish()
-        }, 3000)// 3 초
-
-    }
+//    public override fun onResume() {
+//        super.onResume()  // Always call the superclass method first
+//
+//        val handler = Handler()
+//        handler.postDelayed({
+//            val intent = Intent(this, SelectLoginOrJoinActivity::class.java)
+//            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP
+//            startActivity(intent)
+//            finish()
+//        }, 3000)// 3 초
+//
+//    }
 
     // 화면 재사용시에 onCreate 대신에 호출됨.
     public override fun onNewIntent(intent: Intent) {
