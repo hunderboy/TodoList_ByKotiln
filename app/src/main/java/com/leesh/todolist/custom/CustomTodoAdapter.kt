@@ -11,7 +11,7 @@ import com.leesh.todolist.R
 import com.leesh.todolist.databinding.ItemTodoBinding
 
 class CustomTodoAdapter(
-    private val dataSet: List<Todo>,
+    private var dataSet: List<Todo>,
 
     // 이걸 통해서 밖으로 Todo객체를 TodoAdapter 밖으로 전달할 것이다. -> Unit 리턴 받을 것 없다.
     val onClickDeleteIcon: (todo: Todo) -> Unit,
@@ -64,6 +64,16 @@ class CustomTodoAdapter(
 
     override fun getItemCount() = dataSet.size
 
+
+
+    /** MutableLiveData 를 사용하기 위해 만들어진 함수
+     * MutableLiveData 은 데이터가 변경 될때 마다 새로 List를 재할당하게 설정되어 있다.
+     * 이 함수를 호출하면 dataSet에 다시 List를 재할당하게 되는것.
+     */
+    fun setData(newData: List<Todo>) {
+        dataSet = newData // List 재할당
+        notifyDataSetChanged() // 데이터 갱신
+    }
 }
 
 

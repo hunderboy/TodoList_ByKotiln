@@ -1,5 +1,6 @@
 package com.leesh.todolist.custom
 
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
 
@@ -9,23 +10,26 @@ import androidx.lifecycle.ViewModel
  */
 class HomeViewModel : ViewModel() {
 
-    val data = arrayListOf<Todo>()
+    val todoLiveData = MutableLiveData<List<Todo>>()
+
+
+    private val data = arrayListOf<Todo>()
 
 
     // 토글
     fun toggleTodo(todo: Todo) {
         todo.isDone = !todo.isDone
-//        todoLiveData.value = data
+        todoLiveData.value = data
     }
     // 추가
     fun addTodo(todo: Todo) {
         data.add(todo) // 데이터 추가 후에
-//        todoLiveData.value = data
+        todoLiveData.value = data
     }
     // 삭제
     fun deleteTodo(todo: Todo) {
         data.remove(todo) // 데이터 삭제 후에 어댑터에 알려줘야 함.
-//        todoLiveData.value = data
+        todoLiveData.value = data
     }
 
 

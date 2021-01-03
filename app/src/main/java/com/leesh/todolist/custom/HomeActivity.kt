@@ -4,7 +4,9 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.leesh.todolist.TodoAdapter
 import com.leesh.todolist.databinding.ActivityHomeBinding
+import java.util.Observer
 
 class HomeActivity : AppCompatActivity() {
     private lateinit var binding: ActivityHomeBinding
@@ -35,15 +37,13 @@ class HomeActivity : AppCompatActivity() {
         binding.recyclerView.apply {
             layoutManager = LinearLayoutManager(this@HomeActivity)
             adapter = CustomTodoAdapter(
-//                emptyList(), // emptyList()( = 일단 에러가 나지 않게 코틀린에서 제공함.) == 잠시 테스트 할때 사용. 인자값이 List 일때만 허용됨
-                viewModel.data,
+                emptyList(), // emptyList()( = 일단 에러가 나지 않게 코틀린에서 제공함.) == 잠시 테스트 할때 사용. 인자값이 List 일때만 허용됨
+//                viewModel.data,
                 onClickDeleteIcon = {
                     viewModel.deleteTodo(it)
-                    binding.recyclerView.adapter?.notifyDataSetChanged()
                 },
                 onClickItem = {
                     viewModel.toggleTodo(it)
-                    binding.recyclerView.adapter?.notifyDataSetChanged()
                 }
             )
         }
@@ -52,9 +52,17 @@ class HomeActivity : AppCompatActivity() {
         binding.addButton.setOnClickListener {
             val todo = Todo(binding.editText.text.toString())
             viewModel.addTodo(todo)
-            binding.recyclerView.adapter?.notifyDataSetChanged()
         }
 
+        // 관찰 UI 업데이트
+        /**
+         * 관찰하여 UI 업데이트 시키는 code
+         * viewModel 의 todoLiveData 이 바뀔때 마다, it 으로 List<Todo> 가 넘어온다.
+         * LiveData 를 사용하면 화면 갱신 하는 code 를 한쪽에 몰아 넣을수 있음 [연결되어 있는 분산된 코드를 한곳에 모아 놓을수 있음]
+         */
+        viewModel.todoLiveData.observe(this, androidx.lifecycle.Observer {
+            (binding.recyclerView.adapter as CustomTodoAdapter).setData(it)
+        })
 
     }
 

@@ -268,7 +268,7 @@ class MainViewModel : ViewModel() {
     // private 를 삭제하여 외부에서 접근 가능 하게 끔
     fun toggleTodo(todo: Todo) {
         todo.isDone = !todo.isDone
-        todoLiveData.value = data
+        todoLiveData.value = data // MutableLiveData <<= arrayListOf 재 할당. 변경 될때마다
     }
 
     fun addTodo(todo: Todo) {
