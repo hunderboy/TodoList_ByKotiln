@@ -39,11 +39,11 @@ android {
 
 dependencies {
     // 파이어베이스
-    implementation platform('com.google.firebase:firebase-bom:26.1.0') // BOM 모듈 -> firebase 전체 버전 관리
+    implementation platform('com.google.firebase:firebase-bom:26.2.0') // BOM 모듈 -> firebase 전체 버전 관리
     implementation 'com.google.firebase:firebase-auth-ktx'      // 인증
     implementation 'com.google.firebase:firebase-analytics-ktx' // 분석툴
+    implementation 'com.google.firebase:firebase-firestore-ktx' // 파이어스토어
     implementation 'com.firebaseui:firebase-ui-auth:6.2.0' // 파이어베이스 자체 UI 인증
-    implementation 'com.google.firebase:firebase-firestore:22.0.1'
 
     // 비밀번호 암호화
     implementation group: 'de.svenkubiak', name: 'jBCrypt', version: '0.4.1'

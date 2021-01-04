@@ -7,15 +7,16 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.google.firebase.firestore.DocumentSnapshot
 import com.leesh.todolist.R
 import com.leesh.todolist.databinding.ItemTodoBinding
 
 class CustomTodoAdapter(
-    private var dataSet: List<Todo>,
+    private var dataSet: List<DocumentSnapshot>,
 
     // 이걸 통해서 밖으로 Todo객체를 TodoAdapter 밖으로 전달할 것이다. -> Unit 리턴 받을 것 없다.
-    val onClickDeleteIcon: (todo: Todo) -> Unit,
-    val onClickItem: (todo: Todo) -> Unit
+    val onClickDeleteIcon: (todo: DocumentSnapshot) -> Unit,
+    val onClickItem: (todo: DocumentSnapshot) -> Unit
 ) :
     RecyclerView.Adapter<CustomTodoAdapter.TodoViewHolder>() {
 
@@ -32,12 +33,10 @@ class CustomTodoAdapter(
     override fun onBindViewHolder(viewHolder: TodoViewHolder, position: Int) {
         val todo = dataSet[position]
 
-        viewHolder.binding.todoText.text = todo.text
+        viewHolder.binding.todoText.text = todo.getString("text")?:""
 
 
-        if (todo.isDone) { // isDone = true 할일 완료
-//            holder.binding.todoText.paintFlags = holder.binding.todoText.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
-            // 우리는 코틀린으로 코딩을 하는 중이기 때문에 위의 긴 코드 중에서 중복되는 부분을 줄일수 있다. -> apply 함수 사용
+        if ((todo.getBoolean("isDone")?:false) == true) { // isDone = true 할일 완료
             viewHolder.binding.todoText.apply {
                 paintFlags = paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
                 setTypeface(null, Typeface.ITALIC) // 이탤릭체 처리
@@ -70,7 +69,7 @@ class CustomTodoAdapter(
      * MutableLiveData 은 데이터가 변경 될때 마다 새로 List를 재할당하게 설정되어 있다.
      * 이 함수를 호출하면 dataSet에 다시 List를 재할당하게 되는것.
      */
-    fun setData(newData: List<Todo>) {
+    fun setData(newData: List<DocumentSnapshot>) {
         dataSet = newData // List 재할당
         notifyDataSetChanged() // 데이터 갱신
     }

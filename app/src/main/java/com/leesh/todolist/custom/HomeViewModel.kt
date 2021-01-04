@@ -4,7 +4,9 @@ import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.QueryDocumentSnapshot
 import com.google.firebase.ktx.Firebase
 
 
@@ -15,8 +17,8 @@ import com.google.firebase.ktx.Firebase
 class HomeViewModel : ViewModel() {
     private val db = FirebaseFirestore.getInstance() // firestore 객체 얻기
 
-    val todoLiveData = MutableLiveData<List<Todo>>()
-    private val data = arrayListOf<Todo>()
+    val todoLiveData = MutableLiveData<List<DocumentSnapshot>>()
+//    private val data = arrayListOf<QueryDocumentSnapshot>() // 각 document 들의 리스트..  = 필요없어짐
 
     init {
         fetchData()
@@ -26,29 +28,34 @@ class HomeViewModel : ViewModel() {
         val user = FirebaseAuth.getInstance().currentUser
         if(user != null) {
             // 데이터 읽기
-            db.collection(user.uid) // 로그인 유저의 Uid
+            db.collection(user.uid) // 로그인 유저의 Uid 라고 설정된 collection 접근
+                /** 여기서 사실상
+                value(QuerySnapshot) = 컬렉션(Table 역할)
+                document(QueryDocumentSnapshot) = 문서(row 역할)
+                 */
                 .addSnapshotListener { value, e ->
                     if (e != null) {
                         return@addSnapshotListener
                     }
 
-                    data.clear() // 데이터 비우고 다시 쌓는다
-                    for (document in value!!) {
-                        val todo = Todo(
-                            document.getString("text")?:"",
-                            document.getBoolean("isDone")?:false
-                        )
-                        data.add(todo)
+                    if(value != null){
+                        todoLiveData.value = value.documents // 도큐먼트 들!!! = documents
                     }
-                    todoLiveData.value = data
+
+                    // 필요 없어짐
+//                    data.clear() // 데이터 비우고 다시 쌓는다
+//                    for (document in value!!) {
+//                        data.add(document)
+//                    }
+//                    todoLiveData.value = data
                 }
         }
     }
 
     // 토글
-    fun toggleTodo(todo: Todo) {
-        todo.isDone = !todo.isDone
-        todoLiveData.value = data
+    fun toggleTodo(todo: DocumentSnapshot) {
+//        todo.isDone = !todo.isDone
+//        todoLiveData.value = data
     }
     // 추가
     fun addTodo(todo: Todo) {
@@ -57,9 +64,11 @@ class HomeViewModel : ViewModel() {
         }
     }
     // 삭제
-    fun deleteTodo(todo: Todo) {
-        data.remove(todo)
-        todoLiveData.value = data
+    fun deleteTodo(todo: DocumentSnapshot) {
+        FirebaseAuth.getInstance().currentUser?.let { user ->
+            // 삭제를 위해서는 Document.id 가 필요하다.
+            db.collection(user.uid).document(todo.id).delete()
+        }
     }
 
 
