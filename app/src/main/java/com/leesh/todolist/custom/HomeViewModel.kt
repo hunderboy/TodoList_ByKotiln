@@ -13,7 +13,7 @@ import com.google.firebase.ktx.Firebase
  * 모두 ViewModel로 옮긴다.
  */
 class HomeViewModel : ViewModel() {
-    val db = FirebaseFirestore.getInstance() // firestore 객체 얻기
+    private val db = FirebaseFirestore.getInstance() // firestore 객체 얻기
 
     val todoLiveData = MutableLiveData<List<Todo>>()
     private val data = arrayListOf<Todo>()
@@ -42,29 +42,6 @@ class HomeViewModel : ViewModel() {
                     }
                     todoLiveData.value = data
                 }
-
-
-                // 아래의 코드를 실시간 변경 감지 코드로 변경하였다.
-//                .get()
-//                .addOnSuccessListener { result ->
-//                    data.clear() // 데이터 비우고 다시 쌓는다
-//                    for (document in result) {
-//                        // id = Document id
-//                        // data = 해당 Document의 모든 field 데이터
-//                        // Log.d(TAG, "${document.id} => ${document.data}")
-//
-//                        val todo = Todo(
-//                            document.data["text"] as String,
-//                            document.data["isDone"] as Boolean,
-//                        )
-//                        data.add(todo)
-//                    }
-//                    todoLiveData.value = data
-//                }
-//                .addOnFailureListener { exception ->
-//                    Log.w("실패시", "Error getting documents.", exception)
-//                }
-
         }
     }
 
@@ -75,12 +52,13 @@ class HomeViewModel : ViewModel() {
     }
     // 추가
     fun addTodo(todo: Todo) {
-        data.add(todo) // 데이터 추가 후에
-        todoLiveData.value = data
+        FirebaseAuth.getInstance().currentUser?.let { user ->
+            db.collection(user.uid).add(todo)
+        }
     }
     // 삭제
     fun deleteTodo(todo: Todo) {
-        data.remove(todo) // 데이터 삭제 후에 어댑터에 알려줘야 함.
+        data.remove(todo)
         todoLiveData.value = data
     }
 
