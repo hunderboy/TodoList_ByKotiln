@@ -27,25 +27,44 @@ class HomeViewModel : ViewModel() {
         if(user != null) {
             // 데이터 읽기
             db.collection(user.uid) // 로그인 유저의 Uid
-                .get()
-                .addOnSuccessListener { result ->
-                    data.clear() // 데이터 비우고 다시 쌓는다
-                    for (document in result) {
-                        // id = Document id
-                        // data = 해당 Document의 모든 field 데이터
-                        // Log.d(TAG, "${document.id} => ${document.data}")
+                .addSnapshotListener { value, e ->
+                    if (e != null) {
+                        return@addSnapshotListener
+                    }
 
+                    data.clear() // 데이터 비우고 다시 쌓는다
+                    for (document in value!!) {
                         val todo = Todo(
-                            document.data["text"] as String,
-                            document.data["isDone"] as Boolean,
+                            document.getString("text")?:"",
+                            document.getBoolean("isDone")?:false
                         )
                         data.add(todo)
                     }
                     todoLiveData.value = data
                 }
-                .addOnFailureListener { exception ->
-                    Log.w("실패시", "Error getting documents.", exception)
-                }
+
+
+                // 아래의 코드를 실시간 변경 감지 코드로 변경하였다.
+//                .get()
+//                .addOnSuccessListener { result ->
+//                    data.clear() // 데이터 비우고 다시 쌓는다
+//                    for (document in result) {
+//                        // id = Document id
+//                        // data = 해당 Document의 모든 field 데이터
+//                        // Log.d(TAG, "${document.id} => ${document.data}")
+//
+//                        val todo = Todo(
+//                            document.data["text"] as String,
+//                            document.data["isDone"] as Boolean,
+//                        )
+//                        data.add(todo)
+//                    }
+//                    todoLiveData.value = data
+//                }
+//                .addOnFailureListener { exception ->
+//                    Log.w("실패시", "Error getting documents.", exception)
+//                }
+
         }
     }
 

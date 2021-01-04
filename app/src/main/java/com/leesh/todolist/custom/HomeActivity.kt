@@ -134,7 +134,6 @@ class HomeActivity : AppCompatActivity() {
         inflater.inflate(R.menu.main, menu)
         return true
     }
-
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         // Handle item selection
         return when (item.itemId) {
