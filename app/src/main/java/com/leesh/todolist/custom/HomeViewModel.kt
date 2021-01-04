@@ -55,8 +55,8 @@ class HomeViewModel : ViewModel() {
     // 토글
     fun toggleTodo(todo: DocumentSnapshot) {
         FirebaseAuth.getInstance().currentUser?.let { user ->
-            val isDone = todo.getBoolean("isDone")?:false
-            db.collection(user.uid).document(todo.id).update("isDone", !isDone) // key, value
+            val status = todo.getBoolean("status")?:false
+            db.collection(user.uid).document(todo.id).update("status", !status) // key, value
         }
     }
     // 추가

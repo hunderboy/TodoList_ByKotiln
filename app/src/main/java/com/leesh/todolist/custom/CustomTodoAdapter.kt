@@ -36,12 +36,12 @@ class CustomTodoAdapter(
         viewHolder.binding.todoText.text = todo.getString("text")?:""
 
 
-        if ((todo.getBoolean("isDone")?:false) == true) { // isDone = true 할일 완료
+        if ((todo.getBoolean("status")?:false) == true) { // status = true 할일 완료
             viewHolder.binding.todoText.apply {
                 paintFlags = paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
                 setTypeface(null, Typeface.ITALIC) // 이탤릭체 처리
             }
-        } else { // isDone = false 할일 해야함!!
+        } else { // status = false 할일 해야함!!
             viewHolder.binding.todoText.apply {
                 paintFlags = 0
                 setTypeface(null, Typeface.NORMAL) // 노말 처리

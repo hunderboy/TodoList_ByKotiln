@@ -157,7 +157,7 @@ class MainActivity : AppCompatActivity() {
 // 데이터 클래스로 사용할 클래스
 data class Todo(
     val text: String,
-    var isDone: Boolean = false, // 기본 값 false
+    var status: Boolean = false, // 기본 값 false
 )
 
 
@@ -208,7 +208,7 @@ class TodoAdapter(
         // 아래 코드로 바인딩 설정
         holder.binding.todoText.text = myDataset[position].text
 
-        if (todo.isDone) { // 할일이 완료된 경우
+        if (todo.status) { // 할일이 완료된 경우
 //            holder.binding.todoText.paintFlags = holder.binding.todoText.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
             // 우리는 코틀린으로 코딩을 하는 중이기 때문에 위의 긴 코드 중에서 중복되는 부분을 줄일수 있다. -> apply 함수 사용
             holder.binding.todoText.apply {
@@ -267,7 +267,7 @@ class MainViewModel : ViewModel() {
 
     // private 를 삭제하여 외부에서 접근 가능 하게 끔
     fun toggleTodo(todo: Todo) {
-        todo.isDone = !todo.isDone
+        todo.status = !todo.status
         todoLiveData.value = data // MutableLiveData <<= arrayListOf 재 할당. 변경 될때마다
     }
 
