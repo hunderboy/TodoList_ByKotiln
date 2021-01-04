@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".custom.PhoneAuthActivity">
+
+
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/iv_back"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="32dp"
+        android:onClick="@{()->vm.onBackClick()}"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_error_outline_black_24dp" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/text_self_auth"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="28dp"
+        android:layout_marginTop="16dp"
+        android:text="본인 인증"
+        android:textColor="@color/colorTxtBlack1"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/iv_back" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/text_self_auth_need"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:text="본인 인증이 필요합니다."
+        android:textColor="@color/colorTxtRed"
+        android:textSize="14sp"
+        app:layout_constraintStart_toStartOf="@id/text_self_auth"
+        app:layout_constraintTop_toBottomOf="@id/text_self_auth" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/text_phone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="36dp"
+        android:text="휴대전화번호 (예시 1021018816)"
+        android:textColor="@color/colorTxtGrey1"
+        android:textSize="12sp"
+        app:layout_constraintStart_toStartOf="@id/text_self_auth"
+        app:layout_constraintTop_toBottomOf="@id/text_self_auth_need" />
+
+    <androidx.appcompat.widget.AppCompatEditText
+        android:id="@+id/et_phone"
+        android:layout_width="0dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="6dp"
+        android:layout_marginEnd="16dp"
+        android:background="@drawable/radius_mint_outline_button"
+        android:inputType="numberDecimal"
+        android:maxLength="10"
+        android:padding="8dp"
+        android:singleLine="true"
+        android:text="@={vm.etPhoneNum}"
+        app:layout_constraintEnd_toStartOf="@id/tv_auth_request"
+        app:layout_constraintStart_toStartOf="@id/text_self_auth"
+        app:layout_constraintTop_toBottomOf="@id/text_phone" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tv_auth_request"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="28dp"
+        android:onClick="@{()->vm.requestAuth()}"
+        android:text="인증 요청"
+        android:textColor="@color/colorTxtRed"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="@id/et_phone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/et_phone"
+        app:layout_constraintTop_toTopOf="@id/et_phone" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/text_enter_phone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="인증 번호 입력"
+        android:textColor="@color/colorTxtGrey1"
+        android:textSize="12sp"
+        app:layout_constraintStart_toStartOf="@id/text_self_auth"
+        app:layout_constraintTop_toBottomOf="@id/et_phone" />
+
+    <androidx.appcompat.widget.AppCompatEditText
+        android:id="@+id/et_enter_code"
+        android:layout_width="0dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="6dp"
+        android:layout_marginEnd="28dp"
+        android:background="@drawable/radius_mint_outline_button"
+        android:enabled="false"
+        android:inputType="numberDecimal"
+        android:padding="8dp"
+        android:singleLine="true"
+        android:text="@={vm.etAuthNum}"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@id/text_self_auth"
+        app:layout_constraintTop_toBottomOf="@id/text_enter_phone"
+       />
+<!--    bind:onEnterBackground="@{vm.authState}"-->
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tv_retry_auth"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:onClick="@{()->vm.requestAuth()}"
+        android:text="인증번호 재전송"
+        android:textColor="@color/colorTxtRed"
+        android:textSize="12sp"
+        app:layout_constraintStart_toStartOf="@id/text_self_auth"
+        app:layout_constraintTop_toBottomOf="@id/et_enter_code" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tv_auth_next"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="28dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="28dp"
+        android:background="@drawable/radius_mint_button"
+        android:enabled="false"
+        android:gravity="center"
+        android:onClick="@{()->vm.authUser()}"
+        android:paddingTop="11dp"
+        android:paddingBottom="12dp"
+        android:text="인증하기"
+        android:textColor="@color/colorTxtBlack1"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_retry_auth"
+         />
+<!--    bind:onRequestBackground="@{vm.authState}"-->
+<!--    <ProgressBar-->
+<!--        android:id="@+id/pb_loading"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:gravity="center"-->
+<!--        android:visibility="@{vm.isLoading() ? View.VISIBLE : View.GONE}"-->
+<!--        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--        app:layout_constraintLeft_toLeftOf="parent"-->
+<!--        app:layout_constraintRight_toRightOf="parent"-->
+<!--        app:layout_constraintTop_toTopOf="parent" />-->
+
+</androidx.constraintlayout.widget.ConstraintLayout>
