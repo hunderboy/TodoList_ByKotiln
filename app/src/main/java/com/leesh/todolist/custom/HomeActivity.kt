@@ -12,11 +12,14 @@ import androidx.activity.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.firebase.ui.auth.AuthUI
 import com.firebase.ui.auth.IdpResponse
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.firebase.auth.FirebaseAuth
 import com.leesh.todolist.R
 import com.leesh.todolist.TodoAdapter
 import com.leesh.todolist.auth.PhoneAuthActivity
+import com.leesh.todolist.bottomsheet.OrderBottomDialogFragment
 import com.leesh.todolist.databinding.ActivityHomeBinding
+import com.leesh.todolist.util.MyApplication
 import java.util.Observer
 
 class HomeActivity : AppCompatActivity() {
@@ -30,6 +33,15 @@ class HomeActivity : AppCompatActivity() {
     private val viewModel: HomeViewModel by viewModels()
     private val rcSignIn = 1000; // 로그인
 
+    companion object{
+        // 싱글턴 패턴화
+        val orderBottomDialogFragment: OrderBottomDialogFragment = OrderBottomDialogFragment {
+            when (it) {
+                0 -> Toast.makeText(MyApplication.ApplicationContext(), "추천순", Toast.LENGTH_SHORT).show()
+                1 -> Toast.makeText(MyApplication.ApplicationContext(), "리뷰순", Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -76,7 +88,10 @@ class HomeActivity : AppCompatActivity() {
             val intent = Intent(this, PhoneAuthActivity::class.java)
             startActivity(intent)
         }
-
+        // bottom sheet 버튼
+        binding.buttonBottomSheet.setOnClickListener {
+            orderBottomDialogFragment.show(supportFragmentManager, orderBottomDialogFragment.tag)
+        }
 
 
         // 관찰 UI 업데이트
