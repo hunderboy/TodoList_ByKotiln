@@ -13,17 +13,17 @@ class OrderBottomDialogFragment(val itemClick: (Int) -> Unit) : BottomSheetDialo
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View =
-        inflater.inflate(R.layout.fragment_order_bottom_dialog, container, false)
+        inflater.inflate(R.layout.fragment_calendar_day_exercise, container, false)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        view.tv_recommend_order.setOnClickListener {
-            itemClick(0)
-            dialog?.dismiss()
-        }
-        view.tv_review_order.setOnClickListener {
-            itemClick(1)
-            dialog?.dismiss()
-        }
+//        view.tv_recommend_order.setOnClickListener {
+//            itemClick(0)
+//            dialog?.dismiss()
+//        }
+//        view.tv_review_order.setOnClickListener {
+//            itemClick(1)
+//            dialog?.dismiss()
+//        }
     }
 }

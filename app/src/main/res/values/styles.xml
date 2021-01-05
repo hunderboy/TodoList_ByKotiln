@@ -66,4 +66,18 @@
         </item>
     </style>
 
+    <!-- ImageView Corner  -->
+    <style name="round_imageview">
+        <item name="cornerFamily">
+            rounded
+        </item>
+        <item name="cornerSize">
+            20dp
+        </item>
+        <item name="color">
+            #ffffff
+        </item>
+    </style>
+
+
 </resources>

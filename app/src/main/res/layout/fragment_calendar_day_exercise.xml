@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingBottom="24dp"
+    app:behavior_hideable="true"
+    app:behavior_peekHeight="56dp"
+    app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
+
+
+    <CalendarView
+        android:id="@+id/calendarView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_16"
+
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <FrameLayout
+        android:id="@+id/frameLayout"
+        android:layout_width="match_parent"
+        android:layout_height="360dp"
+        android:layout_marginStart="22dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="25dp"
+
+        android:background="@drawable/radius_white_button"
+        android:elevation="6dp"
+
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/calendarView">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/imageButton_today_exercise"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+
+                android:scaleType="centerCrop"
+                app:shapeAppearanceOverlay="@style/round_imageview"
+                app:srcCompat="@drawable/ex1" />
+
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="27dp"
+                android:layout_marginBottom="7dp"
+
+                android:text="Knee extension hold"
+                android:textStyle="bold"
+
+                app:layout_constraintBottom_toTopOf="@+id/textView3"
+                app:layout_constraintStart_toStartOf="@+id/imageButton_today_exercise" />
+
+            <TextView
+                android:id="@+id/textView3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="27dp"
+                android:layout_marginBottom="25dp"
+
+                android:text="Knee Walk"
+                android:textStyle="bold"
+
+                app:layout_constraintBottom_toBottomOf="@+id/imageButton_today_exercise"
+                app:layout_constraintStart_toStartOf="@+id/imageButton_today_exercise" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <ImageButton
+            android:id="@+id/imageButton_transparent"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@android:color/transparent" />
+
+    </FrameLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

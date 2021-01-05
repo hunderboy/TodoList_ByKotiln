@@ -35,7 +35,7 @@ class HomeActivity : AppCompatActivity() {
 
     companion object{
         // 싱글턴 패턴화
-        val orderBottomDialogFragment: OrderBottomDialogFragment = OrderBottomDialogFragment {
+        val orderBottomDialogFragment = OrderBottomDialogFragment {
             when (it) {
                 0 -> Toast.makeText(MyApplication.ApplicationContext(), "추천순", Toast.LENGTH_SHORT).show()
                 1 -> Toast.makeText(MyApplication.ApplicationContext(), "리뷰순", Toast.LENGTH_SHORT).show()
@@ -90,6 +90,7 @@ class HomeActivity : AppCompatActivity() {
         }
         // bottom sheet 버튼
         binding.buttonBottomSheet.setOnClickListener {
+            // 프래그먼트 반복 오류 처리 해야함 :Fragment already added error
             orderBottomDialogFragment.show(supportFragmentManager, orderBottomDialogFragment.tag)
         }
 
