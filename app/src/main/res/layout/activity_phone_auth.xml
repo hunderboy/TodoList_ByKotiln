@@ -74,7 +74,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="28dp"
-        android:onClick="@{()->vm.requestAuth()}"
         android:text="인증 요청"
         android:textColor="@color/colorTxtRed"
         android:textSize="14sp"
@@ -82,6 +81,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/et_phone"
         app:layout_constraintTop_toTopOf="@id/et_phone" />
+
+<!--    android:onClick="@{()->vm.requestAuth()}"-->
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/text_enter_phone"

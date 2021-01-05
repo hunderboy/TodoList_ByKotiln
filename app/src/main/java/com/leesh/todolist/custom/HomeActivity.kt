@@ -15,6 +15,7 @@ import com.firebase.ui.auth.IdpResponse
 import com.google.firebase.auth.FirebaseAuth
 import com.leesh.todolist.R
 import com.leesh.todolist.TodoAdapter
+import com.leesh.todolist.auth.PhoneAuthActivity
 import com.leesh.todolist.databinding.ActivityHomeBinding
 import java.util.Observer
 
@@ -43,11 +44,14 @@ class HomeActivity : AppCompatActivity() {
             login() // 로그인 프로세스 처리
         }
 
-//        binding.recyclerView.layoutManager = LinearLayoutManager(this)
-//        binding.recyclerView.adapter = CustomTodoAdapter(data)
 
-        // binding.recyclerView 가 반복된다.
-        // 반복되는 코드는 apply 를 통해서 처리할수 있다.
+        /** binding.recyclerView 가 반복된다.
+            반복되는 코드는 apply 를 통해서 처리할수 있다.
+
+            binding.recyclerView.layoutManager = LinearLayoutManager(this)
+            binding.recyclerView.adapter = CustomTodoAdapter(data)
+            의 코드를 아래 처럼 변경한다.
+         */
         binding.recyclerView.apply {
             layoutManager = LinearLayoutManager(this@HomeActivity)
             adapter = CustomTodoAdapter(
@@ -62,11 +66,18 @@ class HomeActivity : AppCompatActivity() {
             )
         }
 
-
+        // 추가 버튼
         binding.addButton.setOnClickListener {
             val todo = Todo(binding.editText.text.toString())
             viewModel.addTodo(todo)
         }
+        // 휴대폰인증 버튼
+        binding.buttonPhoneAuth.setOnClickListener {
+            val intent = Intent(this, PhoneAuthActivity::class.java)
+            startActivity(intent)
+        }
+
+
 
         // 관찰 UI 업데이트
         /**

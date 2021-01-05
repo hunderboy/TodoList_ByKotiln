@@ -43,6 +43,7 @@ dependencies {
     implementation 'com.google.firebase:firebase-auth-ktx'      // 인증
     implementation 'com.google.firebase:firebase-analytics-ktx' // 분석툴
     implementation 'com.google.firebase:firebase-firestore-ktx' // 파이어스토어
+    implementation 'com.google.firebase:firebase-messaging-ktx' // 메세징
     implementation 'com.firebaseui:firebase-ui-auth:6.2.0' // 파이어베이스 자체 UI 인증
 
     // 비밀번호 암호화
